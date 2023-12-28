@@ -1,7 +1,7 @@
 package com.test;
 
 public class Money extends gameAspects{
-    public Money(String focus, Integer quantity, Integer cost) {
-        super(focus, quantity, cost);
+    public Money(String focus, Double quantity, Integer cost, Double bonus) {
+        super(focus, quantity, cost, bonus);
     }
 }

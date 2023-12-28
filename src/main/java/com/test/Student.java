@@ -1,8 +1,9 @@
 package com.test;
 
 public class Student extends gameAspects{
-    public Student(String focus, Integer quantity, Integer cost) {
-        super(focus, quantity, cost);
-        setEquation("(1.0/10.0)*pow(qty,3)+10");
+    public Student(String focus, Double quantity, Integer cost, Double bonus) {
+        super(focus, quantity, cost, bonus);
+        setEquation("(1.0/126.0)*pow(qty-10,3)+10");
+        setProduction(0.1);
     }
 }

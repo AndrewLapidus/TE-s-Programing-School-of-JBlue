@@ -34,7 +34,7 @@ public class App {
     public void run() {
         setup.setupGame();
         // Value to save gameData Note: will change in settings later
-        int save = 1000; //Set to 1000 seconds for testing purposes
+        int save = 10000; //Set to 10000 seconds for testing purposes
 
         // Current update process: Calculate and update information and sleep for 1 second
         while (true){
@@ -49,7 +49,7 @@ public class App {
             // Once save counter gets to Zero save data and reset counter.
             save--;
             if(save<=0){
-                save = 1000;
+                save = 10000;
                 //insert save code
                 saveData();
             }
@@ -64,10 +64,14 @@ public class App {
 
         // This will run the current calculations and update any info and visuals needed
 
-        int moneyProduction = 0;
-        int currentCoin = 0;
-        int qty = 0;
+        double moneyProduction = 0;
+        double unitProduction = 0.0;
+        double totalProduction = 0.0;
+        double currentCoin = 0;
+        double qty = 0;
+        double bonusMilestone;
         int cost = 0;
+
 
 
         for(String key : keys){
@@ -75,10 +79,18 @@ public class App {
             if(key.equals("Money")){
                 currentCoin = objects.getQuantity();
             }else {
+                // Grab Production values
                 qty = objects.getQuantity();
                 cost = EquationBuilder.main(key);
                 objects.setCost(cost);
-                moneyProduction += qty;
+                // Fix logic to handle multiple milestones
+                bonusMilestone = objects.getBonus();
+                unitProduction = objects.getProduction()*bonusMilestone;
+                totalProduction = qty*unitProduction;
+                // Testing
+//                System.out.println(String.format("Unit: %s\nQty: %s\nProduct/Unit: %s\nTotal: %s",key,qty,unitProduction,totalProduction));
+
+                moneyProduction += totalProduction;
             }
 
             if(key.equals("Student")){
@@ -92,10 +104,10 @@ public class App {
             }
         }
 
-        int newCoin = currentCoin+moneyProduction;
+        double newCoin = (currentCoin+moneyProduction);
         gameAspects money = (gameAspects) dataMap.get("Money");
         money.setQuantity(newCoin);
-        setup.moneyLabel.setText(String.format("Money: %s",newCoin));
+        setup.moneyLabel.setText(String.format("Money: %s",(int)newCoin));
 
 
     }
@@ -115,15 +127,15 @@ public class App {
                     // Check for specific fields to decide which subclass to instantiate
                     if ("Money".equals(focus)) {
                         // Handle instantiation for Money subclass
-                        Integer quantity = jsonObject.get("quantity").getAsInt();
+                        Double quantity = jsonObject.get("quantity").getAsDouble();
                         // Instantiate Money object
-                        return new Money(focus,quantity,null);
+                        return new Money(focus,quantity,null,0.0);
                     } else if ("Student".equals(focus)) {
                         // Handle instantiation for Student subclass
-                        Integer quantity = jsonObject.get("quantity").getAsInt();
+                        Double quantity = jsonObject.get("quantity").getAsDouble();
                         Integer cost = jsonObject.get("cost").getAsInt();
                         // Instantiate Student object
-                        return new Student(focus, quantity, cost);
+                        return new Student(focus, quantity, cost,0.0);
                     }
                     // Handle other cases or return null/default object
                     return null;

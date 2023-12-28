@@ -35,15 +35,15 @@ public class setup {
         File data = new File("data.json");
 
         if(!data.exists() || data.isDirectory()) {
-            gameAspects money = new Money("Money", 100000,null);
+            gameAspects money = new Money("Money", 0.0,null,0.0);
             dataMap.put("Money", money);
-            gameAspects student = new Student("Student", 0, 10);
+            gameAspects student = new Student("Student",  0.0, 5,1.0);
             dataMap.put("Student", student);
-            gameAspects junior = new Junior("Junior", 0, 100);
+            gameAspects junior = new Junior("Junior", 0.0, 50,1.0);
             dataMap.put("Junior",junior);
-            gameAspects senior = new Senior("Senior", 0, 1000);
+            gameAspects senior = new Senior("Senior", 0.0, 100,1.0);
             dataMap.put("Senior",senior);
-            gameAspects manager = new Manager("Manager", 0, 10000);
+            gameAspects manager = new Manager("Manager", 0.0, 1000,1.0);
             dataMap.put("Manager",manager);
         }else {
             System.out.println("Saved Data found, loading in.");
@@ -53,28 +53,28 @@ public class setup {
                 for(String key: jsonObject.keySet()){
                     if(key.equals("Money")){
                         gameAspects money = new Money(jsonObject.getAsJsonObject(key).get("focus").getAsString(),
-                                jsonObject.getAsJsonObject(key).get("quantity").getAsInt(),
-                                null);
+                                jsonObject.getAsJsonObject(key).get("quantity").getAsDouble(),
+                                null,jsonObject.getAsJsonObject(key).get("bonus").getAsDouble());
                         dataMap.put(key,money);
                     }else if(key.equals("Student")){
                         gameAspects student = new Student(jsonObject.getAsJsonObject(key).get("focus").getAsString(),
-                                jsonObject.getAsJsonObject(key).get("quantity").getAsInt(),
-                                jsonObject.getAsJsonObject(key).get("cost").getAsInt());
+                                jsonObject.getAsJsonObject(key).get("quantity").getAsDouble(),
+                                jsonObject.getAsJsonObject(key).get("cost").getAsInt(),jsonObject.getAsJsonObject(key).get("bonus").getAsDouble());
                         dataMap.put(key,student);
                     }else if(key.equals("Junior")){
                         gameAspects junior = new Junior(jsonObject.getAsJsonObject(key).get("focus").getAsString(),
-                                jsonObject.getAsJsonObject(key).get("quantity").getAsInt(),
-                                jsonObject.getAsJsonObject(key).get("cost").getAsInt());
+                                jsonObject.getAsJsonObject(key).get("quantity").getAsDouble(),
+                                jsonObject.getAsJsonObject(key).get("cost").getAsInt(),jsonObject.getAsJsonObject(key).get("bonus").getAsDouble());
                         dataMap.put(key,junior);
                     }else if(key.equals("Senior")){
                         gameAspects senior = new Senior(jsonObject.getAsJsonObject(key).get("focus").getAsString(),
-                                jsonObject.getAsJsonObject(key).get("quantity").getAsInt(),
-                                jsonObject.getAsJsonObject(key).get("cost").getAsInt());
+                                jsonObject.getAsJsonObject(key).get("quantity").getAsDouble(),
+                                jsonObject.getAsJsonObject(key).get("cost").getAsInt(),jsonObject.getAsJsonObject(key).get("bonus").getAsDouble());
                         dataMap.put(key,senior);
                     }else if(key.equals("Manager")){
                         gameAspects manager = new Manager(jsonObject.getAsJsonObject(key).get("focus").getAsString(),
-                                jsonObject.getAsJsonObject(key).get("quantity").getAsInt(),
-                                jsonObject.getAsJsonObject(key).get("cost").getAsInt());
+                                jsonObject.getAsJsonObject(key).get("quantity").getAsDouble(),
+                                jsonObject.getAsJsonObject(key).get("cost").getAsInt(),jsonObject.getAsJsonObject(key).get("bonus").getAsDouble());
                         dataMap.put(key,manager);
                     }
                 }
@@ -185,16 +185,19 @@ public class setup {
 
         studentButton.addActionListener(e -> {
             gameAspects value = (gameAspects) dataMap.get("Money");
-            int coin = value.getQuantity();
+            Double coin = value.getQuantity();
             gameAspects value2 = (gameAspects) dataMap.get("Student");
             int cost = value2.getCost();
             if( coin>=cost){
-                value.setQuantity(coin - cost);
-                int qty = value2.getQuantity();
+
+                double ncoin = coin-cost;
+                value.setQuantity(ncoin);
+                moneyLabel.setText(String.format("Money: %s",(int)ncoin));
+                Double qty = value2.getQuantity();
                 qty++;
-                double dCost = (1.0/10.0)*Math.pow(qty,3)+10;
-                cost = (int)dCost;
                 value2.setQuantity(qty);
+                value2.setBonus();
+                cost = EquationBuilder.main("Student");
                 value2.setCost(cost);
                 studentButton.setText(String.format("Student \n Quantity: %s\n Price: %s",qty,cost));
             }
@@ -203,16 +206,16 @@ public class setup {
 
         juniorButton.addActionListener(e -> {
             gameAspects value = (gameAspects) dataMap.get("Money");
-            int coin = value.getQuantity();
+            Double coin = value.getQuantity();
             gameAspects value2 = (gameAspects) dataMap.get("Junior");
             int cost = value2.getCost();
             if( coin>=cost){
                 value.setQuantity(coin - cost);
-                int qty = value2.getQuantity();
+                Double qty = value2.getQuantity();
                 qty++;
-                double dCost = (1.0/10.0)*Math.pow(qty,3)+100;
-                cost = (int)dCost;
                 value2.setQuantity(qty);
+                value2.setBonus();
+                cost = EquationBuilder.main("Junior");
                 value2.setCost(cost);
                 juniorButton.setText(String.format("Junior \n Quantity: %s\n Price: %s",qty,cost));
             }
@@ -221,16 +224,16 @@ public class setup {
 
         seniorButton.addActionListener(e -> {
             gameAspects value = (gameAspects) dataMap.get("Money");
-            int coin = value.getQuantity();
+            Double coin = value.getQuantity();
             gameAspects value2 = (gameAspects) dataMap.get("Senior");
             int cost = value2.getCost();
             if( coin>=cost){
                 value.setQuantity(coin - cost);
-                int qty = value2.getQuantity();
+                Double qty = value2.getQuantity();
                 qty++;
-                double dCost = (1.0/10.0)*Math.pow(qty,3)+1000;
-                cost = (int)dCost;
                 value2.setQuantity(qty);
+                value2.setBonus();
+                cost = EquationBuilder.main("Senior");
                 value2.setCost(cost);
                 seniorButton.setText(String.format("Senior \n Quantity: %s\n Price: %s",qty,cost));
             }
@@ -239,16 +242,15 @@ public class setup {
 
         managerButton.addActionListener(e -> {
             gameAspects value = (gameAspects) dataMap.get("Money");
-            int coin = value.getQuantity();
+            Double coin = value.getQuantity();
             gameAspects value2 = (gameAspects) dataMap.get("Manager");
             int cost = value2.getCost();
             if( coin>=cost){
                 value.setQuantity(coin - cost);
-                int qty = value2.getQuantity();
+                Double qty = value2.getQuantity();
                 qty++;
-                double dCost = (1.0/10.0)*Math.pow(qty,3)+10000;
-                cost = (int)dCost;
                 value2.setQuantity(qty);
+                cost = EquationBuilder.main("Manager");
                 value2.setCost(cost);
                 managerButton.setText(String.format("Manager \n Quantity: %s\n Price: %s",qty,cost));
             }
@@ -260,12 +262,12 @@ public class setup {
     private static void updateButton(gameAspects value){
         String focus = value.getFocus();
         if (focus.equals("Money")){
-            int coin = value.getQuantity();
+            double coin = value.getQuantity();
 
             coin ++;
             value.setQuantity(coin);
 
-            moneyLabel.setText(String.format("Money: %s",coin));
+            moneyLabel.setText(String.format("Money: %s",(int)coin));
         }
     }
 
