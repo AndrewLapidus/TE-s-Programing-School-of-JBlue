@@ -7,6 +7,14 @@ will add later
 
 ## Recent Changes
 
+### V 0.1.3 Upgrade Tab Fixes and Bonuses (TBD)(Planning)
+- [ ] Money label updates
+- [ ] Upgrade Fixes
+- [ ] Work on Upgrade specifics
+- [ ] Bonus class setup
+- [ ] Bonus class implement
+- [ ] Logger Panel in bottom
+
 ### V 0.1.2 Upgrade Tab Basics 01/02/2024 
 - Creation of left panel Upgrade tab visuals and 1 button
 - Made changes to Roadmap

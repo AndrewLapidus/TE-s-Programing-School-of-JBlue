@@ -4,14 +4,15 @@
 These must be done before V 0.2
 - [ ] Add Version number to save data in case of incompatible data
 - [ ] Add requirements to use unit
-- [ ] Money needs to be updated when bought with buttons
-- [ ] Upgrades need to be updated in both spots
+- [ ] (WIP)Money needs to be updated when bought with buttons
+- [ ] (WIP)Upgrades need to be updated in both spots
 - [ ] Adjust setup to be smaller
 - [ ] Fix saving data for bonuses
 - [ ] Change bonus to super (maybe)
 - [ ] Add additional setupvalue calculation when loading in like bonuses and upgrades
-- [ ] Change upgrade buttons names to reflect specifics 
-- [ ] Need to integrate any additional bonuses to update feature or somewhere else.
+- [ ] (WIP)Change upgrade buttons names to reflect specifics 
+- [ ] (WIP)Need to integrate any additional bonuses to update feature or somewhere else.
+
 
 ## Take care of whenever (QOL)(Please rewrite this before main push)
 Quality of life are done whenever or during QOL Version Update
@@ -21,7 +22,7 @@ Quality of life are done whenever or during QOL Version Update
 - [ ] Test removal of setLabel in App.Update()
 - [ ] Add master version notes
 - [ ] Add manual save
-- [ ] Add Income/sec and/or brief income ex: + 1,229 coin
+- [ ] (WIP)Add Income/sec and/or brief income ex: + 1,229 coin
 - [ ] Clean code up remove old notes
 - [ ] Button Visuals
 - [ ] Tab Hotkeys
