@@ -23,12 +23,18 @@ public class setup {
     public static JButton juniorButton;
     public static JButton seniorButton;
     public static JButton managerButton;
+    public static JButton b1;
+    public static JButton b2;
+    public static JButton b3;
+    public static JButton b4;
+    public static JButton b5;
     static ConcurrentHashMap<String, Object> dataMap = (ConcurrentHashMap<String, Object>) App.getDataMap();
 
     public static void main(String[] args) {
 
     }
     public static void setupGame() {
+
 
 
 
@@ -45,6 +51,8 @@ public class setup {
             dataMap.put("Senior",senior);
             gameAspects manager = new Manager("Manager", 0.0, 1000,1.0);
             dataMap.put("Manager",manager);
+            UpgradeAspects hHelp = new Upgrade("HomeworkHelp",false,0,25,10,.10,0,"pow(qty,2)");
+            dataMap.put("Upgrade",hHelp);
         }else {
             System.out.println("Saved Data found, loading in.");
             try(FileReader reader = new FileReader(data)){
@@ -97,6 +105,8 @@ public class setup {
         JPanel topPanel = createTopPanel();
         JPanel rightUnitPanel = createRightUnitPanel();
         JPanel whaleObjectThing = createWhalePanel();
+        //Temp upgrade panel
+        JPanel leftUpgradePanel = createUppgradePanel();
 //        JPanel bottomLogPanel = createBottomLogPanel();
 
         // Add game sections to gamescreen
@@ -105,12 +115,15 @@ public class setup {
         frame.add(topPanel, BorderLayout.NORTH);
         frame.add(rightUnitPanel, BorderLayout.EAST);
         frame.add(whaleObjectThing, BorderLayout.CENTER);
+        frame.add(leftUpgradePanel, BorderLayout.WEST);
 //        frame.add(bottomLogPanel, BorderLayout.SOUTH);
 
 
 
         frame.setVisible(true);
     }
+
+
     private static JPanel createTopPanel(){
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(2,5));
@@ -159,6 +172,48 @@ public class setup {
         whalePanel.add(whaleButton);
 
         return whalePanel;
+    }
+
+    private static JPanel createUppgradePanel() {
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new GridLayout(5,1));
+
+        // Setup buttons
+        b1 = new JButton("<html>Homework Help Session: <br>Practice problems to bost<br> output by 10% max 250%</html>");
+        b2 = new JButton("Not in Use");
+        b3 = new JButton("Not in Use");
+        b4 = new JButton("Not in Use");
+        b5 = new JButton("Not in Use");
+
+
+
+        // Add to Panel
+        leftPanel.add(b1);
+        leftPanel.add(b2);
+        leftPanel.add(b3);
+        leftPanel.add(b4);
+        leftPanel.add(b5);
+
+        //Button listeners
+        b1.addActionListener(e -> {
+            UpgradeAspects value = (UpgradeAspects) dataMap.get("Upgrade");
+            gameAspects value2 = (gameAspects) dataMap.get("Money");
+            int qty = value.getQty();
+            int cap = value.getCap();
+            int cost = value.getCost();
+            double coin = value2.getQuantity();
+            double nCoin;
+            if (qty < cap && coin >= cost){
+                nCoin = coin - cost;
+                value2.setQuantity(nCoin);
+                qty ++;
+                value.setQty(qty);
+                value.setCost(EquationBuilder.main("Upgrade"));
+                cost = value.getCost();
+                b1.setText(String.format("<html>HomeWork Help<br>Qty: %s<br>Cost: %s</html>",qty,cost));
+            }
+        });
+        return leftPanel;
     }
 
     private static JPanel createRightUnitPanel() {

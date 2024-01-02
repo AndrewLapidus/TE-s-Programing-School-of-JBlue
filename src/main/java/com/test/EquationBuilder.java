@@ -13,16 +13,32 @@ public class EquationBuilder {
     // calculating rate of cost or something
     public static int main(String str){
 
-        gameAspects objects = (gameAspects) dataMap.get(str);
-        String equation = objects.getEquation();
-        double qty = objects.getQuantity();
 
-        Expression expression = new ExpressionBuilder(equation)
-                .variables("qty")
-                .build()
-                .setVariable("qty", qty);
-        double result = expression.evaluate();
-        int intResult = (int)result;
-        return intResult;
+        try {
+            gameAspects objects = (gameAspects) dataMap.get(str);
+            String equation = objects.getEquation();
+            double qty = objects.getQuantity();
+
+            Expression expression = new ExpressionBuilder(equation)
+                    .variables("qty")
+                    .build()
+                    .setVariable("qty", qty);
+            double result = expression.evaluate();
+            int intResult = (int)result;
+            return intResult;
+        } catch (Exception e) {
+            UpgradeAspects objects = (UpgradeAspects) dataMap.get(str);
+            String equation = objects.getEquation();
+            double qty = objects.getQty();
+
+            Expression expression = new ExpressionBuilder(equation)
+                    .variables("qty")
+                    .build()
+                    .setVariable("qty", qty);
+            double result = expression.evaluate();
+            int intResult = (int)result;
+            return intResult;
+        }
+
     }
 }

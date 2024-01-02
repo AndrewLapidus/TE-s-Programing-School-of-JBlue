@@ -1,5 +1,7 @@
 package com.test;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public abstract class gameAspects {
 
     private String focus;
@@ -8,6 +10,7 @@ public abstract class gameAspects {
     private Double production;
     private String equation;
     private Double bonus;
+    static ConcurrentHashMap<String, Object> dataMap = (ConcurrentHashMap<String, Object>) App.getDataMap();
     /*
     Unsure if all aspects will come through gameaspects or i'll make a different for each section.
      */
@@ -64,6 +67,8 @@ public abstract class gameAspects {
     }
 
     public void setBonus() {
+        UpgradeAspects value = (UpgradeAspects) dataMap.get("Upgrade");
+
         double bonus=0.0;
         // convert qty to int and set bonus to 1
         int qty = (int)((getQuantity()*100)/100);
@@ -77,6 +82,10 @@ public abstract class gameAspects {
             bonus += .25*(qty/50);
             bonus += .50*(qty/100);
             bonus += 1*(qty/500);
+//            System.out.println("Before: "+bonus);
+            // call to bonusCalc Class that handles achievements/upgrades/prestige stuff... maybe
+            bonus += value.getQty()* value.getModifyer();
+//            System.out.println("After: " + bonus);
         }else {
             bonus = 0.0;
         }

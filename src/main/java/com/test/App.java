@@ -34,7 +34,7 @@ public class App {
     public void run() {
         setup.setupGame();
         // Value to save gameData Note: will change in settings later
-        int save = 10000; //Set to 10000 seconds for testing purposes
+        int save = 60; //Set to 10000 seconds when testing
 
         // Current update process: Calculate and update information and sleep for 1 second
         while (true){
@@ -49,7 +49,7 @@ public class App {
             // Once save counter gets to Zero save data and reset counter.
             save--;
             if(save<=0){
-                save = 10000;
+                save = 60;
                 //insert save code
                 saveData();
             }
@@ -74,33 +74,39 @@ public class App {
 
 
 
+
         for(String key : keys){
-            gameAspects objects = (gameAspects) dataMap.get(key);
-            if(key.equals("Money")){
-                currentCoin = objects.getQuantity();
+            if(key.equals("Upgrade")){
+                //temp
             }else {
-                // Grab Production values
-                qty = objects.getQuantity();
-                cost = EquationBuilder.main(key);
-                objects.setCost(cost);
-                // Fix logic to handle multiple milestones
-                bonusMilestone = objects.getBonus();
-                unitProduction = objects.getProduction()*bonusMilestone;
-                totalProduction = qty*unitProduction;
-                // Testing
+                gameAspects objects = (gameAspects) dataMap.get(key);
+                if (key.equals("Money")) {
+                    currentCoin = objects.getQuantity();
+                } else {
+                    // Grab Production values
+                    qty = objects.getQuantity();
+                    cost = EquationBuilder.main(key);
+                    objects.setCost(cost);
+                    // Fix logic to handle multiple milestones
+                    objects.setBonus();
+                    bonusMilestone = objects.getBonus();
+                    unitProduction = objects.getProduction() * bonusMilestone;
+                    totalProduction = qty * unitProduction;
+                    // Testing
 //                System.out.println(String.format("Unit: %s\nQty: %s\nProduct/Unit: %s\nTotal: %s",key,qty,unitProduction,totalProduction));
 
-                moneyProduction += totalProduction;
-            }
+                    moneyProduction += totalProduction;
+                }
 
-            if(key.equals("Student")){
-                setup.studentButton.setText(String.format("Student \n Quantity: %s\n Price: %s",qty,cost));
-            }else if(key.equals("Junior")){
-                setup.juniorButton.setText(String.format("Junior \n Quantity: %s\n Price: %s",qty,cost));
-            }else if(key.equals("Senior")){
-                setup.seniorButton.setText(String.format("Senior \n Quantity: %s\n Price: %s",qty,cost));
-            }else if(key.equals("Manager")){
-                setup.managerButton.setText(String.format("Manager \n Quantity: %s\n Price: %s",qty,cost));
+                if (key.equals("Student")) {
+                    setup.studentButton.setText(String.format("Student \n Quantity: %s\n Price: %s", qty, cost));
+                } else if (key.equals("Junior")) {
+                    setup.juniorButton.setText(String.format("Junior \n Quantity: %s\n Price: %s", qty, cost));
+                } else if (key.equals("Senior")) {
+                    setup.seniorButton.setText(String.format("Senior \n Quantity: %s\n Price: %s", qty, cost));
+                } else if (key.equals("Manager")) {
+                    setup.managerButton.setText(String.format("Manager \n Quantity: %s\n Price: %s", qty, cost));
+                }
             }
         }
 
