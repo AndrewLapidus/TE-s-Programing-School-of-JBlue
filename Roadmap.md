@@ -8,7 +8,7 @@ These must be done before V 0.2
 - [ ] Upgrades need to be updated in both spots
 - [ ] Adjust setup to be smaller
 - [ ] Fix saving data for bonuses
-- [ ] Change bonus to super
+- [ ] Change bonus to super (maybe)
 - [ ] Add additional setupvalue calculation when loading in like bonuses and upgrades
 - [ ] Change upgrade buttons names to reflect specifics 
 - [ ] Need to integrate any additional bonuses to update feature or somewhere else.
@@ -32,7 +32,6 @@ with the addition of production of lines of code.
 - Setup and balance production of Student/Junior/Senior/Manager
 - Implement slight upgrades to unit production
 - Temporary upgrade tab as left panel
-- Add changes to save data
 
 ### V 0.3 Producing Lines of Code
 Huge update!!! Moving into some story elements, goals. Note: Please rewrite this, I sound weird.

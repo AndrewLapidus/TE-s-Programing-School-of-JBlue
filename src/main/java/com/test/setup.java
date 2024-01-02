@@ -36,9 +36,8 @@ public class setup {
     public static void setupGame() {
 
 
-
-
-        File data = new File("data.json");
+        System.out.println("Save data loading removed and will be reintroduced sometime before V 0.2. Current V 0.1.2");
+        File data = new File("NA.json");
 
         if(!data.exists() || data.isDirectory()) {
             gameAspects money = new Money("Money", 0.0,null,0.0);

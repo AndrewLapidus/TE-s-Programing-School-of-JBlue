@@ -7,7 +7,7 @@ will add later
 
 ## Recent Changes
 
-### V 0.1.2 Upgrade Tab Basics 01/02/2024 (Inital)
+### V 0.1.2 Upgrade Tab Basics 01/02/2024 
 - Creation of left panel Upgrade tab visuals and 1 button
 - Made changes to Roadmap
 - Made adjustments to EquationBuilder
