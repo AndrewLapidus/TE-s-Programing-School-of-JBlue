@@ -35,7 +35,7 @@ public class setup {
         File data = new File("data.json");
 
         if(!data.exists() || data.isDirectory()) {
-            gameAspects money = new Money("Money", 100000,null);
+            gameAspects money = new Money("Money", 0,null);
             dataMap.put("Money", money);
             gameAspects student = new Student("Student", 0, 10);
             dataMap.put("Student", student);
