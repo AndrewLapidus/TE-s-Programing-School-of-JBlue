@@ -1,6 +1,8 @@
 # TE-s-Programing-School-of-JBlue
-Idle Clicker. 
-Description TBD
+Description TBD.
+Soon to be idle-clicker game based on building a company that builds projects and sells them.
+Currently no compiled source and needs java to run. Web/Exe and any other type to be relaesed around V 1.
+
 
 
 ## Recent Changes
